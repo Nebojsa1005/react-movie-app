@@ -1,0 +1,9 @@
+.card {
+    width: 33%;
+    background: #0F1924 !important;
+    color: white !important;
+}
+
+.card img {
+    width: 100% !important;
+}
