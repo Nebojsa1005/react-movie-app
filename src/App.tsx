@@ -1,27 +1,37 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import "./App.css";
-import Movies from "./pages/movies/Movies";
-import MoviesList from "./pages/movies/MoviesList";
-import Root from "./pages/Root";
-import MovieDetails from "./pages/movies/MovieDetails";
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import './App.css';
+import Movies from './pages/movies/Movies';
+import MoviesList from './pages/movies/MoviesList';
+import Root from './pages/Root';
+import MovieDetails from './pages/movies/MovieDetails';
+import Register from './pages/auth/Register';
+import Login from './pages/auth/Login';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Root />,
     children: [
       {
-        path: "movies",
+        path: 'movies',
         element: <Movies />,
         children: [
           {
-            path: ":id",
+            path: ':id',
             element: <MoviesList />,
           },
-          { path: "view/:id", element: <MovieDetails /> },
+          { path: 'view/:id', element: <MovieDetails /> },
         ],
       },
     ],
+  }, 
+  {
+    path: 'register',
+    element: <Register />,
+  },
+  {
+    path: 'login',
+    element: <Login />,
   },
 ]);
 

@@ -10,7 +10,6 @@ const MovieItem = ({ movie }: { movie: Movie }) => {
   const navigate = useNavigate();
 
   const likeButtonHandler = () => {
-    console.log("stize");
 
     // add movie to user
   };
@@ -39,6 +38,7 @@ const MovieItem = ({ movie }: { movie: Movie }) => {
           }}
         >
           <LikeButton likeButtonHandler={likeButtonHandler} />
+          
           <ViewButton
             icon={ViewButtonIcon}
             viewDetailsHandler={viewDetailsHandler}
