@@ -6,7 +6,7 @@ import MovieItem from "./MovieItem";
 import classes from "./MoviesList.module.css";
 
 const MoviesList = () => {
-  const { id } = useParams();
+  const { id = "now_playing" } = useParams();
 
   const [movies, setMovies] = useState<Movies | null>(null);
 
