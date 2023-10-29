@@ -5,22 +5,28 @@ import LikeButton from "../../components/LikeButton";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ViewButton from "../../components/ViewButton";
 import { useNavigate } from "react-router";
+import { AuthContext } from "../../contexts/auth-context";
+import { useContext } from "react";
 
 const MovieItem = ({ movie }: { movie: Movie }) => {
+  const { addFavoriteMovie, removeFavoriteMovie, userData } =
+    useContext(AuthContext);
   const navigate = useNavigate();
 
-  const likeButtonHandler = () => {
+  const likeButtonHandler = (id: number) => {
+    const existingMovie = userData.favoriteMovies.indexOf(id);
 
-    // add movie to user
+    existingMovie < 0 ? addFavoriteMovie(id) : removeFavoriteMovie(id);
   };
 
   const viewDetailsHandler = () => {
-    navigate(`../view/${movie.id}`)
+    navigate(`../view/${movie.id}`);
   };
 
   const ViewButtonIcon = {
     endIcon: <ArrowForwardIcon />,
   };
+  
   return (
     <>
       <Card className={classes.card} sx={{ position: "relative" }}>
@@ -37,8 +43,8 @@ const MovieItem = ({ movie }: { movie: Movie }) => {
             left: 0,
           }}
         >
-          <LikeButton likeButtonHandler={likeButtonHandler} />
-          
+          <LikeButton likeButtonHandler={() => likeButtonHandler(movie.id)} />{" "}
+          {userData.favoriteMovies.join(", ")}
           <ViewButton
             icon={ViewButtonIcon}
             viewDetailsHandler={viewDetailsHandler}

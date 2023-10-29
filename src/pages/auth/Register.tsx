@@ -1,37 +1,23 @@
-import { useState } from 'react';
-import { RegisterForm } from '../../types/intefaces/RegisterForm.interface';
 import { Button, TextField } from '@mui/material';
-import classes from './Register.module.css';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router';
-import { useAuthActions } from '../../contexts/AuthContext';
+import { AuthContext } from '../../contexts/auth-context';
+import classes from './Register.module.css';
 
 const Register = () => {
-  const { register } = useAuthActions();
-  const [registerForm, setRegister] = useState<RegisterForm>({
-    email: '',
-    password: '',
-  });
+  const { updateUserData, userData } = useContext(AuthContext)
+  
   const navigate = useNavigate();
 
-  const updateRegisterForm = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const key = event.target.name;
-    const value = event.target.value;
-
-    setRegister((prev: RegisterForm) => {
-      prev[key] = value;
-      return {
-        ...prev,
-      };
-    });
-  };
 
   const submitForm = async (event: React.SyntheticEvent<HTMLFormElement>) => {
-    console.log(event);
-    
     event.preventDefault();
-    register(registerForm);
-    // navigate('/movies');
+    navigate('/movies');
   };
+
+  const updateInput = (event: any) => {    
+    updateUserData(event)
+  }
 
   return (
     <div className={classes.container}>
@@ -42,8 +28,8 @@ const Register = () => {
           label="Email"
           variant="outlined"
           name="email"
-          value={registerForm.email}
-          onChange={updateRegisterForm}
+          value={userData.email}
+          onChange={updateInput}
         />
         <TextField
           sx={{ marginBottom: '0.5rem' }}
@@ -51,8 +37,8 @@ const Register = () => {
           label="Password"
           variant="outlined"
           name="password"
-          value={registerForm.password}
-          onChange={updateRegisterForm}
+          value={userData.password}
+          onChange={updateInput}
         />
         <Button type="submit">Submit</Button>
       </form>

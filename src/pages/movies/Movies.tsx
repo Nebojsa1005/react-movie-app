@@ -1,16 +1,15 @@
 import { Outlet } from "react-router";
 import MoviesListNavigation from "./MovieListNavigation";
-import { useAuthState } from "../../contexts/AuthContext";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/auth-context";
 
 const Movies = () => {
-  const { email, password } = useAuthState()
-  console.log(email, password);
-  
+  const { userData } = useContext(AuthContext);
+
   return (
     <>
-      { email } { password }
       <MoviesListNavigation />
-
+      <h1>Current User: {userData.email}</h1>
       <Outlet />
     </>
   );

@@ -6,6 +6,7 @@ const LikeButton = ({
 }: {
   likeButtonHandler: () => void;
 }) => {
+  
   return (
     <Button
       size="large"

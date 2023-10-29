@@ -1,24 +1,19 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import { getMovieById } from '../../services/movie.service';
-import { Movie } from '../../types/intefaces/Movies.interface';
-import LikeButton from '../../components/LikeButton';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
+import LikeButton from "../../components/LikeButton";
+import { getMovieById } from "../../store/movie-slice";
 
 const MovieDetails = () => {
-  const [movie, setMovie] = useState<Movie | null>(null);
-  const params = useParams();
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const movie = useSelector((state: any) => state.movies.movie);
 
   useEffect(() => {
-    (async () => {
-      if (!params.id) return;
-      const movie = await getMovieById(params.id);
-      setMovie(prevMovie => { return prevMovie = movie});
-    })()
-  }, [params.id]);
+    dispatch(getMovieById(id));
+  }, [id]);
 
-  const likeButtonHandler = () => {
-
-  }
+  const likeButtonHandler = () => {};
 
   return (
     <>
@@ -27,7 +22,7 @@ const MovieDetails = () => {
 
       <LikeButton likeButtonHandler={likeButtonHandler} />
     </>
-  );  
+  );
 };
 
 export default MovieDetails;

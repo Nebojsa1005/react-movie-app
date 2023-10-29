@@ -1,20 +1,25 @@
-import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
-import './App.css';
-import Movies from './pages/movies/Movies';
-import MoviesList from './pages/movies/MoviesList';
-import Root from './pages/Root';
-import MovieDetails from './pages/movies/MovieDetails';
-import Register from './pages/auth/Register';
-import Login from './pages/auth/Login';
-import { AuthProvider } from './contexts/AuthContext';
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
+import "./App.css";
+import AuthContextProvider from "./contexts/auth-provider";
+import Root from "./pages/Root";
+import Register from "./pages/auth/Register";
+import MovieDetails from "./pages/movies/MovieDetails";
+import Movies from "./pages/movies/Movies";
+import MoviesList from "./pages/movies/MoviesList";
+import { store } from "./store";
+import { Provider } from "react-redux";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Root />,
     children: [
       {
-        path: 'movies',
+        path: "movies",
         element: <Movies />,
         children: [
           {
@@ -22,31 +27,27 @@ const router = createBrowserRouter([
             element: <Navigate to="now_playing" />,
           },
           {
-            path: ':id',
+            path: ":id",
             element: <MoviesList />,
           },
-          { path: 'view/:id', element: <MovieDetails /> },
+          { path: "view/:id", element: <MovieDetails /> },
         ],
       },
     ],
   },
   {
-    path: 'register',
+    path: "register",
     element: <Register />,
-  },
-  {
-    path: 'login',
-    element: <Login />,
   },
 ]);
 
 function App() {
   return (
-    <>
-      <AuthProvider>
-        <RouterProvider router={router}></RouterProvider>
-      </AuthProvider>
-    </>
+    <Provider store={store}>
+    <AuthContextProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </AuthContextProvider>
+    </Provider>
   );
 }
 

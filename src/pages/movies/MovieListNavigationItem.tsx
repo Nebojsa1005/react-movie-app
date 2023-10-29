@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { MovieNavigationItem } from "../../types/intefaces/MovieListNavigationItem";
+import classes from './MovieListNavigationItem.module.css'
 
 const MovieListNavigationItem = ({ item }: { item: MovieNavigationItem }) => {
   return (
-    <NavLink to={item.value}>
-      {" "}
+    <NavLink className={classes.link} to={item.value}>
       {item.name}
     </NavLink>
   );
